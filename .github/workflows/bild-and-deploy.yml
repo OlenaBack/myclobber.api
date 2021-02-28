@@ -22,7 +22,7 @@ jobs:
         run: dotnet restore
 
       - name: Build
-        run: dotnet build --no-restore c Release
+        run: dotnet build --no-restore --configuration Release
 
       - name: Assetscreatiopn
         run: dotnet publish --configuration Release --no-build --output ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
