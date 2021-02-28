@@ -3,9 +3,9 @@ name: Build and Deploy
 on:[push]
 
 env:
-AZURE_WEBBAPP_NAME: myclobberapi
-AZURE_WEBBAPP_PACKAGE_PATH: './published'
-NETCORE_VERSION: '3.1.103'
+  AZURE_WEBBAPP_NAME: myclobberapi
+  AZURE_WEBBAPP_PACKAGE_PATH: './published'
+  NETCORE_VERSION: '3.1.103'
 
 jobs:
   build_myclobber_api:
