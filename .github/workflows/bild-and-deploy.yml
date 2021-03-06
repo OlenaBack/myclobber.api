@@ -1,14 +1,14 @@
 name: Build and Deploy
 
-on:[push]
+on: [push]
 
-env:
-  AZURE_WEBBAPP_NAME: myclobberapi
-  AZURE_WEBBAPP_PACKAGE_PATH: './published'
-  NETCORE_VERSION: '3.1.103'
+env: 
+  AZURE_WEBBAPP_NAME: "myclobberapi"
+  AZURE_WEBAPP_PACKAGE_PATH: "./published"
+  NETCORE_VERSION: "3.1.103"
 
 jobs:
-  build_myclobber_api:
+  build_myclobber_api: 
     name: "myclobberr.api build & deploy"
     runs-on: ubuntu-latest
     steps:
@@ -22,15 +22,15 @@ jobs:
         run: dotnet restore
 
       - name: Build
-        run: dotnet build --no-restore c Release
+        run: dotnet build --no-restore --configuration Release
 
       - name: Assetscreatiopn
-        run: dotnet publish --configuration Release --no-build --output ${{env.AZURE_WEBAPP_PACKAGE_PATH}}
+        run: dotnet publish --configuration Release --no-build --output ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
 
       - name: Deploy to Azure
-        run: azure/web-deploy@v2
-        with:
-          app-name: ${{env.AZURE_WEBBAPP_NAME}}
-          publish-profile: ${{secrets.AZURE_WEBAPP_PUBLISH_PROFILE}}
-          package: ${{env.AZURE_WEBAPP_PACKAGE_PATH}}
+        uses: azure/webapps-deploy@v2 
+        with: 
+          app-name: ${{ env.AZURE_WEBBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
 
